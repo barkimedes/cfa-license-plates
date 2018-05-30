@@ -173,21 +173,39 @@ If you get a sequential specialty plate, it will take up to two (2) weeks to be 
 </div>
 
 <div>
-  
-  <script type="text/javascript">
+ 
+ <style type="text/css" media="screen">
+
+table{
+}
+
+table td{
+padding:12px;
+}
+</style>
+
+<script type="text/javascript">
 
 var content = "";
-
+var donation = 0;
+var registration = 0;
+var personalization = 0;
 function personalize()
 {
 		document.getElementById("choose_text").style.display = 'block';
 		content = document.getElementById("personalization_text").value;
+		document.getElementById("summary_personalization").innerHTML = 55;
+		personalization = 55;
+	document.getElementById("summary_total").innerHTML = registration + donation + personalization;
 }
 
 function sequential()
 {
 		document.getElementById("choose_text").style.display = 'none';
 		content = "000 XXX"
+		document.getElementById("summary_donation").innerHTML = 0;
+		personalization = 0;
+	document.getElementById("summary_total").innerHTML = registration + donation + personalization;
 }
 
 function specialty()
@@ -198,6 +216,14 @@ function specialty()
 function standard()
 {
 		document.getElementById("choose_plate").style.display = 'none';
+}
+
+function charge(r, d){
+	donation = d;
+	registration = r;
+	document.getElementById("summary_registration").innerHTML = registration;
+	document.getElementById("summary_donation").innerHTML = donation;
+	document.getElementById("summary_total").innerHTML = registration + donation + personalization;
 }
 
 </script>
@@ -224,13 +250,87 @@ function standard()
     </p>Would you like to have a <i>standard</i> or <i>specialty</i> plate? The standard plate is the basic Colorado license plate. A specialty plate is a license plate with a non-standard design, like the Denver Broncos logo or breast cancer awareness logos. Specialty plates will always have a fee associated with them -- that fee goes towards processing and the remainder goes towards the organization sponsoring the plate.
     </p>
     <div>
-    <h4><input type="radio" id="specialtyRadio" name="design" value="standard" onchange="standard()" checked>Standard</input></h4>
-    <h4><input type="radio" id="specialtyRadio" name="design" value="specialty" onchange="specialty()">Specialty</input></h4>
-    <div id="choose_plate" style="padding-left:24px">
+    	<table width="100%">
+       		<tr>
+    			<td><input type="radio" id="standardplate" name="design" value="standard" onchange="standard()" checked></td>
+    			<td align="center"><img src="plates/Passenger.jpg" style="width:200px"></td>
+    			<td align="center">Standard</td>
+    			<td align="center">Registration: $0</td>
+    			<td align="center">Required Donation: $0</td>
+    			<td width="25%">This is the standard plate. Select if you don't want a custom plate design.</td>
+    		</tr>
+       		<tr>
+    			<td><input type="radio" id="cancerplate" name="design" value="standard" onchange="charge(55, 45)"></td>
+    			<td align="center"><img src="plates/rsz_breast_cancer_modified_passenger.jpg" style="width:200px"></td>
+    			<td align="center">Breast Cancer</td>
+    			<td align="center">Registration: $55</td>
+    			<td align="center">Required Donation: $45</td>
+    			<td width="25%">No restrictions.</td>
+    		</tr>
+       		<tr>
+    			<td><input type="radio" id="broncoplate" name="design" value="standard" onchange="charge(55, 45)"></td>
+    			<td align="center"><img src="plates/Bronco.jpg" style="width:200px"></td>
+    			<td align="center">Denver Broncos</td>
+    			<td align="center">Registration: $55</td>
+    			<td align="center">Required Donation: $45</td>
+    			<td width="25%">No restrictions.</td>
+    		</tr>
+       		<tr>
+    			<td><input type="radio" id="bronzePlate" name="design" value="standard" onchange="charge(0, 0)"></td>
+    			<td align="center"><img src="plates/bronze_starhandicap.jpg" style="width:200px"></td>
+    			<td align="center">Bronze Star</td>
+    			<td align="center">Registration: $0</td>
+    			<td align="center">Required Donation: $0</td>
+    			<td width="25%">Reserved for bronze star recipients.</td>
+    		</tr>
+       		<tr>
+    			<td><input type="radio" id="airplate" name="design" value="standard" onchange="charge(50, 55)"></td>
+    			<td align="center"><img src="plates/Air Force Academy.jpg" style="width:200px"></td>
+    			<td align="center">Air Force Academy</td>
+    			<td align="center">Registration: $50</td>
+    			<td align="center">Required Donation: $55</td>
+    			<td width="25%">A person authorized by the U.S. Air Force Academy Association of Graduates.</td>
+    		</tr>
+       		<tr>
+    			<td><input type="radio" id="regisplate" name="design" value="standard" onchange="charge(50, 0)"></td>
+    			<td align="center"><img src="plates/rgs_unvrsty_image.jpg" style="width:200px"></td>
+    			<td align="center">Regis University</td>
+    			<td align="center">Registration: $50</td>
+    			<td align="center">Required Donation: $0</td>
+    			<td width="25%">No restrictions.</td>
+    		</tr>
+       		<tr>
+    			<td><input type="radio" id="ucplate" name="design" value="standard" onchange="charge(55, 0)"></td>
+    			<td align="center"><img src="plates/univ_co_image.jpg" style="width:200px"></td>
+    			<td align="center">University of Colorado</td>
+    			<td align="center">Registration: $55</td>
+    			<td align="center">Required Donation: $0</td>
+    			<td width="25%">No restrictions.</td>
+    		</tr>
+    	</table>
+    </div>
+    <div>
+
     </div>
     </div>
+   <h2>Order your plates</h2>
+   	Review the charges below. Once you order your plates, they will take 2-4 weeks to arrive.
+     <table width="100%">
+    	<tr>
+    		<th>Personalization</th>
+    		<th>Registration</th>
+    		<th>Donation</th>
+    		<th>Total</th>
+    	</tr>
+    	<tr>
+    		<td>$<span id="summary_personalization">0</span></td>
+    		<td>$<span id="summary_registration">0</span></td>
+    		<td>$<span id="summary_donation">0</span></td>
+    		<td>$<span id="summary_total">0</span></td>
+    </table>
+    <button><h3>Order Plates</h3></button>
 
-
+ 
   </form>
   
 </div>
